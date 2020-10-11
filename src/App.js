@@ -2,33 +2,47 @@ import React from 'react';
 //import logo from './logo.svg';
 import './App.css';
 //import {useTable} from "react";
-import Componentone from './Componentone';
-import Banner from './Banner';
-import Forms from './Forms';
-import Qoutes from './Qoutes'; 
-import Paragraph from './Paragraph';
-import Images from './Images';
-import Tables from './Tables';
-import Links from './Links';
-import Lists from './Lists';
-import Heading from './Heading';
+import Login from './Login';
+import Home from './Home';
+
 
 
 
 function App() {
   return (
    <div>
- <Componentone/> 
- <Banner/>
- <Forms/>
- <Paragraph/>
- <Qoutes/>
- <Images/>
- <Tables/>
- <Links/>
- <Lists/>
- <Heading/>
- </div>
+ <Login/> 
+ <Home/>
+
+
+  
+   
+     
+      <div className="form-group">
+        <div className="container">
+       <input type="search" className="form-control px-4" placeholder="Enter your city..."/> 
+       </div>
+       </div>
+       <div className="click-me">
+         <div className="search-b">
+      <input type="submit" className="search-weather btn btn-success " value="Search"/> 
+      
+            
+     </div>       
+        
+    
+      </div>
+     
+
+</div>
+  
+  
+  
+ 
+ 
+
+
+
   );
   
  
