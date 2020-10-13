@@ -22,8 +22,8 @@ function App() {
         placeholder = "Enter your city..." /
         >
         <
-        /div>{" "} <
-        /div>{" "} <
+        /div>{" "} < /
+        div > { " " } <
         div className = "click-me" >
         <
         div className = "search-b" >
@@ -33,10 +33,11 @@ function App() {
         value = "Search" /
         >
         <
-        /div>{" "} <
-        /div>{" "} <
+        /div>{" "} < /
+        div > { " " } <
         /div>
     );
 }
+
 
 export default App;
