@@ -1,43 +1,58 @@
-
-
-
-
-.form-group .container input{
- 
-  
-  width: 45%;
-  color: black;
-  margin:300px auto;
-  left:0px;
-  height: 35px !important;
-  position: absolute;
-  font-size: 18px;
+*{
+box-sizing: border-box;
 }
-/*
+.App{
+display:flex !important;
+height:100vh;
 
-.form-group{
-  
-  
-  
 }
 
-*/
+.Right{
+ padding: 0 20px; 
+ padding-top: 80px;
 
-  
-  
-  
+}
+.Left{
+  display:flex;
+  flex:1;
+  padding-top:20px;
+  justify-content: center;
+}
+.Homepage{
+  align-items: center;
+  min-width:65%;
+  display:flex;
+  flex-direction: column;
+  color:white;
+}
 
-
-
-
- .click-me .search-b input {
-  height: 45px !important;
-  border: transparent;
-  margin:320px auto;
-  left:490px;
+.weather-logo img{
+  height: auto;
   width:120px;
-  border-radius: 10px;
-  position: relative;
-  
+
+}
+.log {
+  background-color: black;
+  display:inline-block;
+  width:300px;
+  padding:20px 10px;
+  padding-bottom: 50px;
+  color:white;
 }
 
+
+.search-bar input{
+ 
+  width:100%;
+}
+
+.weather-logo{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-weather-btn{
+
+  margin-top: 10px;
+}
