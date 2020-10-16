@@ -29,13 +29,6 @@ const [userlogged, setLogged] = useState(false)
      
 
 </div>
-  
-  
-  
- 
- 
-
-
 
   );
   
