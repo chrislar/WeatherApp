@@ -62,7 +62,6 @@ function Home() {
                             Celcius
                         </h2>
                     </div>
-
                     <input
                         type="search"
                         value={city}
