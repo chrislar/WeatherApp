@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import './Main.css'
+import './Main.css';
+import Logout from './Logout';
 
 let storageArray = [];
 function Main() {
@@ -60,11 +61,9 @@ function Main() {
         let OnlyFive = userSearchVar.slice(Math.max(userSearchVar.length - 5, 0))
         console.log("OnlyFive", OnlyFive)
         let mySearchResults = OnlyFive.map((r, index) => {
-            return <div key={index}>
+            return <div className="SearchHistoryTable" key={index}>
                 <table >
-                    <tr>
-                        <th>Search History</th>
-                    </tr>
+                
                     <tr>
                         <td>{r.localtime}</td>
                     </tr>
@@ -84,8 +83,11 @@ function Main() {
     }
 
     return (
+        
         <div className="mainpage-one-bg" >
-
+<div className="Out">
+                <Logout />
+            </div>
             <div className="Users">
                 <h1> WEATHER APP </h1>
                 <p>{dataloaded ? weatherinfo.request.query : ""}</p>
@@ -97,9 +99,11 @@ function Main() {
 
                 <input type="search" value={city} onChange={CityInput} className="form-control-one" placeholder="Enter your city..." />
                 <input type="submit" onClick={HandleSearch} className="search-weather-btn btn btn-success " />
-                <div className="history" style={{ color: "whitesmoke" }}>
+                <h2>Search History</h2>
+                <div className="history">
                     {searchhistory}
                 </div>
+
             </div>
         </div>
     );

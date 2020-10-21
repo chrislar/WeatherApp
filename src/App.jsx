@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-//import logo from './logo.svg';
-import "./App.css";
+import React from "react";
 
+import "./App.css";
+import Logout from "./Logout";
 import Home from "./Home";
 import Main from "./Main";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
             <Switch>
                 <Route path="/" exact component={Home} />{" "}
                 <Route path="/Main" component={Main} />{" "}
+                <Route path="/Logout" component={Logout} />{" "}
             </Switch>{" "}
         </Router>
     );
