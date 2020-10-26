@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Login from "./Login";
@@ -23,14 +24,14 @@ function Home() {
     }, [searchLocation]);
 
     function ApiCall() {
-        axios
-            .get(
+        axios.get(
                 `http://api.weatherstack.com/current?access_key=27233a0a91b6fe154323803565655c82&query=${searchLocation}`
             )
             .then((res) => {
                 if (res.status === 200 && !res.data.error) {
                     console.log(res);
                     setWeatherInfo(res.data);
+                    
                 } else {
                     console.log(res);
                 }
@@ -44,6 +45,7 @@ function Home() {
         <div className="App">
             <div className="Left">
                 <div className="Homepage">
+
                     <h1> WEATHER APP </h1>
                     <p>{dataloaded ? weatherinfo.request.query : ""}</p>
                     <p>{dataloaded ? weatherinfo.location.localtime : ""}</p>

@@ -1,114 +1,112 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import './Main.css'
+import './Main.css';
+import Logout from './Logout';
 
+let storageArray = [];
+function Main() {
 
-function Main(){
-    const [dataloaded,setDataLoaded]=useState(false);
-    const [city, setCity]=useState('');
-    const [weatherinfo,setWeatherInfo]=useState(null);
+    const [dataloaded, setDataLoaded] = useState(false);
+    const [city, setCity] = useState('');
+    const [weatherinfo, setWeatherInfo] = useState(null);
     const [searchLocation, setSearchLocation] = useState("Accra");
-
+    const [searchhistory, setSearchHistory] = useState('');
     function CityInput(event) {
         setCity(event.target.value);
     }
-    
-    useEffect( ()=>{
-        if (weatherinfo){
+
+    useEffect(() => {
+        if (weatherinfo) {
             setDataLoaded(true)
         }
     }, [weatherinfo]);
-      
-   useEffect(() =>{
-             ApiCall();  
-        },[searchLocation] 
+
+    useEffect(() => {
+        ApiCall();
+    }, [searchLocation]
     )
-    
-   function ApiCall() {
-    axios.get(`http://api.weatherstack.com/current?access_key=27233a0a91b6fe154323803565655c82&query=${searchLocation}`)
-    .then( res => {
-        if(res.status===200 && !res.data.error) {
-            console.log(res);
-            setWeatherInfo(res.data);
-        } else {
-            console.log(res);
-        }
-    })
-    .catch( err => console.error(err)) 
 
-}
-function HandleSearch() {
-    setSearchLocation(city);
+    function ApiCall() {
+        axios.get(`http://api.weatherstack.com/current?access_key=27233a0a91b6fe154323803565655c82&query=${searchLocation}`)
+            .then(res => {
+                if (res.status === 200 && !res.data.error) {
+                    console.log('WeatherArrange', res.data);
+                    setWeatherInfo(res.data);
+                    storageArray.push(
+                        {
+                            localtime: `${res.data.location.name},${res.data.location.country} `,
+                            time: res.data.current.observation_time,
+                            logo: res.data.current.weather_icons[0],
+                            temperature: res.data.current.temperature
 
-}
+                        }
 
+                    )
+                    localStorage.setItem('browserStorage', JSON.stringify(storageArray));
+                    GetSearchHistory()
+                } else {
+                    console.log(res);
+                }
+            })
+            .catch(err => console.error(err))
 
- /*
-        let storageArray=[];
-
-storageArray.push(
-  {
-  name:"Asamoah",
-  email:"asamoah@gmail.com"
-  },
-  {
-  name:"Christian",
-  email:"christian@gmail.com"
-  },
-  {
-  name:"Aziz",
-  email:"aziz@gmail.com"
-  },
-  {
-  name:"Bless",
-  email:"bless@gmail.com"
-  },
-  {
-  name:"Thomas",
-  email:"thomas@gmail.com"
-  },
-  {
-  name:"Frank",
-  email:"frank@gmail.com"
-  },
-  {
-  name:"Nat",
-  email:"nat@gmail.com"
-  }
-  
-)
-
-localStorage.setItem('browserStorage',JSON.stringify(storageArray));
-
-
- let userSearchVar= JSON.parse(localStorage.getItem('browserStorage'));
- console.log("data in browser",userSearchVar)
-
-
- let OnlyFive= userSearchVar.slice(Math.max(userSearchVar.length - 5, 0))
- console.log("OnlyFive",OnlyFive)  */
- 
-    return(
-            <div className="mainpage-one-bg" >
-                 
-                 <div className="Users">
-                        <h1> WEATHER APP </h1>
-                        <p>{dataloaded ? weatherinfo.request.query : ""}</p>
-                        <p>{ dataloaded ? weatherinfo.location.localtime : ""}</p>
-                        <div className="weather-logo">
-                             <img src= {dataloaded ? weatherinfo.current.weather_icons[0] : ""} alt=" "  />
-                             <h2>{dataloaded ? weatherinfo.current.temperature : ""}° Celcius</h2>
-                        </div>
-                    
-                        <input type="search" value={city}  onChange={CityInput} className="form-control-one"  placeholder="Enter your city..."/> 
-                        <input type="submit" onClick={HandleSearch} className="search-weather-btn btn btn-success " />
-                 </div>
-            </div>
-
-    );
     }
+    function HandleSearch() {
+        setSearchLocation(city);
+
+    }
+    function GetSearchHistory() {
+        let userSearchVar = JSON.parse(localStorage.getItem('browserStorage'));
+        console.log("data in browser", userSearchVar)
+        let OnlyFive = userSearchVar.slice(Math.max(userSearchVar.length - 5, 0))
+        console.log("OnlyFive", OnlyFive)
+        let mySearchResults = OnlyFive.map((r, index) => {
+            return <div className="SearchHistoryTable" key={index}>
+                <table >
+                
+                    <tr>
+                        <td>{r.localtime}</td>
+                    </tr>
+                    <tr>
+                        <td>{r.time}</td>
+                    </tr>
+                    <tr>
+                        <td> <img src={r.logo} alt=" " /></td>
+                    </tr>
+                    <tr>
+                        <td>{r.temperature}°  Celcius </td>
+                    </tr>
+                </table>
+            </div>
+        });
+        setSearchHistory(mySearchResults)
+    }
+
+    return (
         
-        export default Main;
+        <div className="mainpage-one-bg" >
+<div className="Out">
+                <Logout />
+            </div>
+            <div className="Users">
+                <h1> WEATHER APP </h1>
+                <p>{dataloaded ? weatherinfo.request.query : ""}</p>
+                <p>{dataloaded ? weatherinfo.location.localtime : ""}</p>
+                <div className="weather-logo">
+                    <img src={dataloaded ? weatherinfo.current.weather_icons[0] : ""} alt=" " />
+                    <h2>{dataloaded ? weatherinfo.current.temperature : ""}° Celcius</h2>
+                </div>
 
+                <input type="search" value={city} onChange={CityInput} className="form-control-one" placeholder="Enter your city..." />
+                <input type="submit" onClick={HandleSearch} className="search-weather-btn btn btn-success " />
+                <h2>Search History</h2>
+                <div className="history">
+                    {searchhistory}
+                </div>
 
- 
+            </div>
+        </div>
+    );
+}
+
+export default Main;
